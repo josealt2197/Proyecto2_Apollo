@@ -4,14 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\JOMA2\DESKTOP\PROYECTO2_APOLLO\PROYECTO2_APOLLO\APP_DATA\APOLLO.MDF.dbo.Questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionID" />
-            <PropertyRef Name="UserQuestion" />
-            <PropertyRef Name="Answers" />
           </Key>
           <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserQuestion" Type="varchar" MaxLength="60" Nullable="false" />
@@ -28,14 +24,14 @@ warning 6002: The table/view 'C:\USERS\JOMA2\DESKTOP\PROYECTO2_APOLLO\PROYECTO2_
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="254" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsEmailVerified" Type="bit" Nullable="false" />
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
           <Property Name="Code" Type="varchar" MaxLength="6" />
         </EntityType>
-        <Association Name="FK__Questions__FUser__48CFD27E">
+        <Association Name="FK__Questions__FUser__267ABA7A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -48,85 +44,85 @@ warning 6002: The table/view 'C:\USERS\JOMA2\DESKTOP\PROYECTO2_APOLLO\PROYECTO2_
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ApolloModelStoreContainer">
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Questions" EntityType="Self.Questions" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Questions].[QuestionID] AS [QuestionID], 
-    [Questions].[UserQuestion] AS [UserQuestion], 
-    [Questions].[Answers] AS [Answers], 
-    [Questions].[FUserID] AS [FUserID]
-    FROM [dbo].[Questions] AS [Questions]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Questions__FUser__48CFD27E" Association="Self.FK__Questions__FUser__48CFD27E">
+          <AssociationSet Name="FK__Questions__FUser__267ABA7A" Association="Self.FK__Questions__FUser__267ABA7A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserQuestion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Answers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FUserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Questions__FUser__267ABA7A" FromRole="Questions" ToRole="Users" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="254" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Questions" Relationship="ApolloModel.FK__Questions__FUser__48CFD27E" FromRole="User" ToRole="Question" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__267ABA7A" FromRole="Users" ToRole="Questions" />
         </EntityType>
-        <EntityContainer Name="ApolloEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Questions" EntityType="ApolloModel.Question" />
-          <AssociationSet Name="FK__Questions__FUser__48CFD27E" Association="ApolloModel.FK__Questions__FUser__48CFD27E">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Question">
-          <Key>
-            <PropertyRef Name="QuestionID" />
-            <PropertyRef Name="UserQuestion" />
-            <PropertyRef Name="Answers" />
-          </Key>
-          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserQuestion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="Answers" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FUserID" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="ApolloModel.FK__Questions__FUser__48CFD27E" FromRole="Question" ToRole="User" />
-        </EntityType>
-        <Association Name="FK__Questions__FUser__48CFD27E">
-          <End Type="ApolloModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ApolloModel.Question" Role="Question" Multiplicity="*" />
+        <Association Name="FK__Questions__FUser__267ABA7A">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="Question">
+            <Dependent Role="Questions">
               <PropertyRef Name="FUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="ApolloEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Questions__FUser__267ABA7A" Association="Self.FK__Questions__FUser__267ABA7A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ApolloModelStoreContainer" CdmEntityContainer="ApolloEntities">
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="ApolloModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="UserQuestion" ColumnName="UserQuestion" />
+                <ScalarProperty Name="Answers" ColumnName="Answers" />
+                <ScalarProperty Name="FUserID" ColumnName="FUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ApolloModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -137,16 +133,8 @@ warning 6002: The table/view 'C:\USERS\JOMA2\DESKTOP\PROYECTO2_APOLLO\PROYECTO2_
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
                 <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="ApolloModel.Question">
-              <MappingFragment StoreEntitySet="Questions">
-                <ScalarProperty Name="FUserID" ColumnName="FUserID" />
-                <ScalarProperty Name="Answers" ColumnName="Answers" />
-                <ScalarProperty Name="UserQuestion" ColumnName="UserQuestion" />
-                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
