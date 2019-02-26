@@ -61,6 +61,11 @@ body {
     font-size:1.2em;
 }
 
+.enlace a:hover {
+    color: #00c853;
+    text-decoration: none;
+}
+
 a:focus {
     outline: thin dotted
 }

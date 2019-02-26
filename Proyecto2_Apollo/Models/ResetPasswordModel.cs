@@ -18,6 +18,7 @@ namespace Proyecto2_Apollo.Models
             MinRequiredPasswordLength = 8
         )]
         //[MaxLength(11, ErrorMessage = "Su contraseña debe tener un máximo de 11 caracteres")]
+        [DataType(DataType.Password)]
         public string NewPassword { get; set; }
 
         [Display(Name = "Confirmar Contraseña")]
