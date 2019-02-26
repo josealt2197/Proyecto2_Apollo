@@ -7,14 +7,24 @@
 <h2>Iniciar Sesión</h2>
 
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Message
+    </div>
+}
+
+
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <center>
         <div class="form-horizontal" align="center">
-            <h4>Ingrese sus credenciales para poder continuar</h4>
             <hr />
+            <h4>Ingrese sus credenciales para poder continuar</h4>
+            <br />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 mx-auto"})*@
@@ -41,14 +51,14 @@
             </div>
 
             @*<div class="form-group">
-                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.RememberMe)
-                        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.RememberMe)
+                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
 
             <div class="form-group">
                 <div class="col-md-12">
