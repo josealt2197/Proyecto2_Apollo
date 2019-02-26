@@ -6,14 +6,16 @@
 <h2>Inicio</h2>
 
 <h4>¡Bienvenido! Es un placer tenerte de vuelta.</h4>
+<center><a href="Login"><img src="~/Content/Images/Logo4.png" class="text-center" width="520" height="200" alt="User" /></a></center>
 
-<br /><br />
-
-Welcome @HttpContext.Current.User.Identity.Name
+Ha iniciado sesión con: @HttpContext.Current.User.Identity.Name
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
     {
-        <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+        <div class="enlace">
+            <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a>
+        </div>
+        
     }
 }
