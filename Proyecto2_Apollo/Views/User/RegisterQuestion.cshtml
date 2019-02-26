@@ -1,0 +1,94 @@
+﻿@model Proyecto2_Apollo.Models.Question
+
+@{
+    ViewBag.Title = "RegisterQuestion";
+}
+
+<h2>RegisterQuestion</h2>
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">
+            <strong>Success!</strong>@ViewBag.Message
+            Puedes regresar al @Html.ActionLink("login", "Login", "User")
+        </div>
+    }
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Question</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "¿Cuál es tu color favorito?",
+                        Value = "¿Cuál es tu color favorito?"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "¿Cuál es tu comida favorita?",
+                        Value = "¿Cuál es tu comida favorita?",
+                        Selected = true
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "¿Cuál es tu pasatiempo favorito?",
+                        Value = "¿Cuál es tu pasatiempo favorito?"
+                    });
+                }
+                @Html.LabelFor(model => model.UserQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.UserQuestion, listItems, "Elige una opción", new { @class = "form-control", })
+                    @Html.ValidationMessageFor(model => model.UserQuestion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Answers, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Answers, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Answers, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FUserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="idusuario" value="@ViewBag.Message" />
+                    @Html.EditorFor(model => model.FUserID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FUserID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error!</strong>@ViewBag.Message
+            </div>
+        }
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
