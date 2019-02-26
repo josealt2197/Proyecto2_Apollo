@@ -295,14 +295,16 @@ namespace Proyecto2_Apollo.Controllers
             string subject = "";
             string body = "";
 
+
             if (emailFor == "VerifyAccount")
             {
                 subject = "¡Su cuenta ha sido creada exitosamente!";
-                body = "<div style='background-color: #18527c; padding:20px'>" +
-                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Bienvenido a Apollo!</span></strong></span></p>" +
-                                "</div>" +
-                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                body = "<div style='background-color: #263238; padding:20px'>" +
+                            "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
+                            "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;¡ Bienvenido a Apollo !</span></strong></span></p>" +
+                            "</div>" +
+                            "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
                                     "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
                             "</div>" +
@@ -312,7 +314,7 @@ namespace Proyecto2_Apollo.Controllers
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
                             "</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
-                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a href='" + link + "'> Activar cuenta </a> </ span ></ span ></ h2 >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 20px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a style='color:#00c853' href='" + link + "'> Activar cuenta </a> </ span ></ span ></ h2 >" +
                             "</ div >" +
                         "</ div > ";
 
@@ -320,11 +322,12 @@ namespace Proyecto2_Apollo.Controllers
             else if (emailFor == "ResetPassword")
             {
                 subject = "Recuperar Contraseña";
-                body = "<div style='background-color: #18527c; padding:20px'>" +
-                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
-                                "</div>" +
-                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                body = "<div style='background-color: #263238; padding:20px'>" +
+                            "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
+                            "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                            "</div>" +
+                            "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
                                     "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
                             "</div>" +
@@ -334,18 +337,19 @@ namespace Proyecto2_Apollo.Controllers
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
                             "</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
-                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a href=" + link + ">Restaurar contraseña</a> </ span ></ span ></ h2 >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 20px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a style='color:#00c853' href=" + link + ">Restaurar contraseña</a> </ span ></ span ></ h2 >" +
                             "</ div >" +
                         "</ div > ";
             }
             else if (emailFor == "TwoStepCode")
             {
                 subject = "Codigo de Acceso";
-                body = "<div style='background-color: #18527c; padding:20px'>" +
-                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
-                                "</div>" +
-                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                body = "<div style='background-color: #263238; padding:20px'>" +
+                            "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
+                            "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                            "</div>" +
+                            "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
                                     "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
                             "</div>" +
@@ -355,10 +359,11 @@ namespace Proyecto2_Apollo.Controllers
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
                             "</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
-                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > " + activationCode + " </ span ></ span ></ h2 >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#00c853' > " + activationCode + " </ span ></ span ></ h2 >" +
                             "</ div >" +
                         "</ div > ";
             }
+
 
 
 
