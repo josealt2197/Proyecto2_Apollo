@@ -144,6 +144,7 @@ namespace Proyecto2_Apollo.Controllers
                     ViewBag.Message = "Solicitud no válida.";
                 }
             }
+            ViewBag.Message = message;
             ViewBag.Status = Status;
             return View();
         }
