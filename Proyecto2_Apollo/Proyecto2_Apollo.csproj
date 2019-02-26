@@ -102,6 +102,14 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bg1.jpg" />
+    <Content Include="Content\Images\bg2.jpg" />
+    <Content Include="Content\Images\bg3.jpg" />
+    <Content Include="Content\Images\Logo1.png" />
+    <Content Include="Content\Images\Logo2.png" />
+    <Content Include="Content\Images\Logo3.png" />
+    <Content Include="Content\Images\Logo4.png" />
+    <Content Include="Content\Images\top-logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

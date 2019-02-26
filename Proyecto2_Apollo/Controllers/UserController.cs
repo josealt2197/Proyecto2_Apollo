@@ -149,6 +149,7 @@ namespace Proyecto2_Apollo.Controllers
             return View();
         }
 
+
         //Login 
         [HttpGet]
         public ActionResult Login()
@@ -349,7 +350,7 @@ namespace Proyecto2_Apollo.Controllers
                                     "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
                             "</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
-                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Hemos recibido una solicitud de ingreso a tu cuenta.</span></span></p><p class='size-22' style='Margin-top: 20px;Margin-bottom: 20px;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Tu codigo de activacion es :</span></span></p>" +
+                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Hemos recibido una solicitud de ingreso a tu cuenta.</span></span></p><p class='size-22' style='Margin-top: 20px;Margin-bottom: 20px;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Tu código para ingresar es :</span></span></p>" +
                             "</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
                             "</div>" +

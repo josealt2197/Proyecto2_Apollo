@@ -3,13 +3,14 @@
     ViewBag.Title = "VerifyAccount";
 }
 
-<h2>VerifyAccount</h2>
-
+<h2>Verificar tu Cuenta</h2>
+<hr />
+<br />
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
-<div class="alert alert-success">
-    <strong>¡Operacion Completada!</strong> Su cuenta ha sido activada correctamente. Haga click para continuar @Html.ActionLink("Preguntas de Seguridad", "RegisterQuestion", "User")
-</div>
+    <div class="alert alert-success">
+        <strong>¡Operacion Completada!</strong> Su cuenta ha sido activada correctamente. Haga click para continuar @Html.ActionLink("Preguntas de Seguridad", "RegisterQuestion", "User")
+    </div>
     <input type="text" name="idusuario" value="@ViewBag.Message" />
     @Html.TextBox("idusuario", "", new { @class = "form-control" })
 
@@ -20,3 +21,7 @@ else
         <strong>Se ha producido un error.</strong> @ViewBag.Message
     </div>
 }
+
+<div class="enlace">
+    @Html.ActionLink("Regresar al inicio", "Login", "User")
+</div>
