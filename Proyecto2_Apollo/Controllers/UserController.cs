@@ -292,26 +292,74 @@ namespace Proyecto2_Apollo.Controllers
 
             string subject = "";
             string body = "";
+
             if (emailFor == "VerifyAccount")
             {
                 subject = "¡Su cuenta ha sido creada exitosamente!";
-                body = "<br/><br/>Nos complace informarle que su cuenta de Apollo Transactions se ha" +
-                    "creado correctamente. Por favor haga clic en el enlace de abajo para verificar su cuenta." +
-                    " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+                body = "<div style='background-color: #18527c; padding:20px'>" +
+                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Bienvenido a Apollo!</span></strong></span></p>" +
+                                "</div>" +
+                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
+                                    "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Nos complace informarle que su cuenta de Apollo Transactions se ha creado correctamente  <br/ Por favor haga clic en el enlace de abajo para verificar su cuenta.></span></span></p>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a href='" + link + "'> Activar cuenta </a> </ span ></ span ></ h2 >" +
+                            "</ div >" +
+                        "</ div > ";
 
             }
             else if (emailFor == "ResetPassword")
             {
                 subject = "Recuperar Contraseña";
-                body = "<br/>br/>Tenemos solicitud para restablecer la contraseña de su cuenta. Haga clic en el enlace de abajo para restablecer su contraseña" +
-                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+                body = "<div style='background-color: #18527c; padding:20px'>" +
+                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                                "</div>" +
+                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
+                                    "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Tenemos solicitud para restablecer la contraseña de su cuenta. Haga clic en el enlace de abajo para restablecer su contraseña </span></span></p>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > <a href=" + link + ">Restaurar contraseña</a> </ span ></ span ></ h2 >" +
+                            "</ div >" +
+                        "</ div > ";
             }
             else if (emailFor == "TwoStepCode")
             {
                 subject = "Codigo de Acceso";
-                body = "Tenemos una solicitud de acceso a tu cuenta. Por favor ingresa el siguiente codigo para continuar" + activationCode;
-
+                body = "<div style='background-color: #18527c; padding:20px'>" +
+                                "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                    "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                                "</div>" +
+                                "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
+                                    "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Hemos recibido una solicitud de ingreso a tu cuenta.</span></span></p><p class='size-22' style='Margin-top: 20px;Margin-bottom: 20px;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Tu codigo de activacion es :</span></span></p>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#fff' > " + activationCode + " </ span ></ span ></ h2 >" +
+                            "</ div >" +
+                        "</ div > ";
             }
+
+
+
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
