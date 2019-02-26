@@ -84,8 +84,9 @@ namespace Proyecto2_Apollo.Controllers
         }
 
         [HttpGet]
-        public ActionResult RegisterQuestion(int idusuario)
+        public ActionResult RegisterQuestion(string user)
         {
+            ViewBag.userid = user;
             return View();
         }
 
@@ -96,9 +97,10 @@ namespace Proyecto2_Apollo.Controllers
             bool Status = false;
             string message = "";
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            try
             {
-
                 q.Answers = Crypto.Hash(q.Answers);
 
                 using (ApolloEntities dc = new ApolloEntities())
@@ -110,14 +112,20 @@ namespace Proyecto2_Apollo.Controllers
                     Status = true;
                 }
             }
-            else
+            catch (Exception e)
             {
                 message = "Solicitud no válida";
             }
+            //}
+            // else
+            //{
+            //  message = "Solicitud no válida";
+            //}
             ViewBag.Message = message;
             ViewBag.Status = Status;
             return View(q);
         }
+
 
 
         //Verify Account  
@@ -128,7 +136,7 @@ namespace Proyecto2_Apollo.Controllers
             string message = "";
             using (ApolloEntities dc = new ApolloEntities())
             {
-                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid 
+                dc.Configuration.ValidateOnSaveEnabled = false; // This line I have added here to avoid
                                                                 // Confirm password does not match issue on save changes
                 var v = dc.Users.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
                 if (v != null)
@@ -147,7 +155,41 @@ namespace Proyecto2_Apollo.Controllers
             ViewBag.Message = message;
             ViewBag.Status = Status;
             return View();
+            //return RedirectToAction("RegisterQuestion", "User");
         }
+
+
+        [HttpPost]
+        public ActionResult VerifyAccount(string idusuario, string valor)
+        {
+            bool Status = false;
+            string message = "";
+            int idu = Convert.ToInt32(idusuario);
+            //TempData["CreditCardInfo"] = idusuario;
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                var v = dc.Users.Where(a => a.UserID == idu).FirstOrDefault();
+                if (v != null)
+                {
+                    //string fNameStr = v.GetType().GetProperty("UserID").GetValue(v, null).ToString();
+                    //u.UserID = Convert.ToInt32(fNameStr);
+                    //dc.SaveChanges();
+                    TempData["id"] = idusuario;
+                    Status = true;
+                    message = Convert.ToString(v.UserID);
+                }
+                else
+                {
+                    ViewBag.Message = "Solicitud no válida.";
+                }
+
+            }
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
+            return RedirectToAction("RegisterQuestion", "User", new { user = idu });
+            //RegisterQuestion(idusuario);
+        }
+
 
 
         //Login 

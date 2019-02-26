@@ -1,19 +1,34 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "VerifyAccount";
 }
 
-<h2>Verificar tu Cuenta</h2>
-<hr />
-<br />
+<h2>Verificación completada</h2>
+
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
-    <div class="alert alert-success">
-        <strong>¡Operacion Completada!</strong> Su cuenta ha sido activada correctamente. Haga click para continuar @Html.ActionLink("Preguntas de Seguridad", "RegisterQuestion", "User")
-    </div>
-    <input type="text" name="idusuario" value="@ViewBag.Message" />
-    @Html.TextBox("idusuario", "", new { @class = "form-control" })
+    using (Html.BeginForm())
+    {
+        <center>
+            <div class="form-horizontal">
+                <div class="alert alert-success">
+                    <strong>¡Operacion Completada!</strong> Su cuenta ha sido activada correctamente.
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Por favor continue con el registro de las preguntas de seguridad.</h4><br />
+                        <input class="btn btn-primary" type="submit" value="Continuar"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div style="display: none;">
+                        @Html.TextBox("idusuario", "", new { @class = "form-control", @Value = @ViewBag.Message })
+                        @Html.TextBox("valor", "", new { @class = "form-control", @Value = @ViewBag.Message })
+                    </div>
+                </div>
 
+            </div>
+        </center>
+    }
 }
 else
 {
@@ -21,7 +36,3 @@ else
         <strong>Se ha producido un error.</strong> @ViewBag.Message
     </div>
 }
-
-<div class="enlace">
-    @Html.ActionLink("Regresar al inicio", "Login", "User")
-</div>
