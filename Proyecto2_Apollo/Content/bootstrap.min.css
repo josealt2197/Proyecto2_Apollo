@@ -48,7 +48,6 @@ body {
     text-align: center;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(38, 50, 56, 0.65))), url("Images/bg3.jpg");
     background: linear-gradient(rgba(38, 50, 56, 0.65)), url("Images/bg3.jpg");
-    //background-image: url("Images/bg3.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -1885,7 +1884,7 @@ textarea.input-lg {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    -o-user-select: none;
+    /*-o-user-select: none;*/
     user-select: none
 }
 
@@ -4748,7 +4747,7 @@ a.thumbnail:hover, a.thumbnail:focus {
 .progress.active .progress-bar {
     -webkit-animation: progress-bar-stripes 2s linear infinite;
     -moz-animation: progress-bar-stripes 2s linear infinite;
-    -ms-animation: progress-bar-stripes 2s linear infinite;
+    /*-ms-animation: progress-bar-stripes 2s linear infinite;*/
     -o-animation: progress-bar-stripes 2s linear infinite;
     animation: progress-bar-stripes 2s linear infinite
 }

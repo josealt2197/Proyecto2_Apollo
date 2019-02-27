@@ -1,0 +1,86 @@
+﻿@model Proyecto2_Apollo.Models.Question
+
+@{
+    ViewBag.Title = "RespondQuestion";
+}
+
+<h2>Preguntas de Seguridad</h2>
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-Info">
+            @ViewBag.Message
+        </div>
+    }
+}
+else
+{
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <center>
+            <div class="form-horizontal">
+                <hr />
+
+                @{
+                    List<SelectListItem> listItemsOne = new List<SelectListItem>();
+                    listItemsOne.Add(new SelectListItem
+                    {
+                        Text = ViewBag.Q1,
+                        Value = ViewBag.Q1
+                    });
+                    listItemsOne.Add(new SelectListItem
+                    {
+                        Text = ViewBag.Q2,
+                        Value = ViewBag.Q2
+                    });
+                    listItemsOne.Add(new SelectListItem
+                    {
+                        Text = ViewBag.Q3,
+                        Value = ViewBag.Q3
+                    });
+                }
+
+                <h4>Seleccione alguna de las preguntas registradas.</h4>
+                <br />
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.UserQuestionOne, listItemsOne, "Elige una opción", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserQuestionOne, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.FUserID, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.userid } })
+                        @Html.ValidationMessageFor(model => model.FUserID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.AnswerOne, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AnswerOne, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Responder" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </center>
+
+    }
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -4,14 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionID" />
           </Key>
           <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserQuestion" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="Answers" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserQuestionOne" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="AnswerOne" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserQuestionTwo" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="AnswerTwo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserQuestionThree" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="AnswerThree" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FUserID" Type="int" />
         </EntityType>
         <EntityType Name="Users">
@@ -31,7 +35,7 @@
           <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
           <Property Name="Code" Type="varchar" MaxLength="6" />
         </EntityType>
-        <Association Name="FK__Questions__FUser__49C3F6B7">
+        <Association Name="FK__Questions__FUser__5CD6CB2B">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -46,12 +50,13 @@
         <EntityContainer Name="ApolloModelStoreContainer">
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Questions__FUser__49C3F6B7" Association="Self.FK__Questions__FUser__49C3F6B7">
+          <AssociationSet Name="FK__Questions__FUser__5CD6CB2B" Association="Self.FK__Questions__FUser__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -60,10 +65,14 @@
             <PropertyRef Name="QuestionID" />
           </Key>
           <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserQuestion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Answers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserQuestionOne" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserQuestionTwo" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserQuestionThree" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnswerThree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FUserID" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Questions__FUser__267ABA7A" FromRole="Questions" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Questions__FUser__5CD6CB2B" FromRole="Questions" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -81,9 +90,9 @@
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__267ABA7A" FromRole="Users" ToRole="Questions" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__5CD6CB2B" FromRole="Users" ToRole="Questions" />
         </EntityType>
-        <Association Name="FK__Questions__FUser__267ABA7A">
+        <Association Name="FK__Questions__FUser__5CD6CB2B">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Questions" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +107,7 @@
         <EntityContainer Name="ApolloEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Questions__FUser__267ABA7A" Association="Self.FK__Questions__FUser__267ABA7A">
+          <AssociationSet Name="FK__Questions__FUser__5CD6CB2B" Association="Self.FK__Questions__FUser__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
@@ -113,8 +122,12 @@
             <EntityTypeMapping TypeName="ApolloModel.Question">
               <MappingFragment StoreEntitySet="Questions">
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-                <ScalarProperty Name="UserQuestion" ColumnName="UserQuestion" />
-                <ScalarProperty Name="Answers" ColumnName="Answers" />
+                <ScalarProperty Name="UserQuestionOne" ColumnName="UserQuestionOne" />
+                <ScalarProperty Name="AnswerOne" ColumnName="AnswerOne" />
+                <ScalarProperty Name="UserQuestionTwo" ColumnName="UserQuestionTwo" />
+                <ScalarProperty Name="AnswerTwo" ColumnName="AnswerTwo" />
+                <ScalarProperty Name="UserQuestionThree" ColumnName="UserQuestionThree" />
+                <ScalarProperty Name="AnswerThree" ColumnName="AnswerThree" />
                 <ScalarProperty Name="FUserID" ColumnName="FUserID" />
               </MappingFragment>
             </EntityTypeMapping>

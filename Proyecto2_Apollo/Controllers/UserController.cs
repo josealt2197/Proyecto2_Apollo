@@ -96,15 +96,15 @@ namespace Proyecto2_Apollo.Controllers
         {
             bool Status = false;
             string message = "";
-
-            //if (ModelState.IsValid)
-            //{
             try
             {
-                q.Answers = Crypto.Hash(q.Answers);
-
+                q.AnswerOne = Crypto.Hash(q.AnswerOne);
+                q.AnswerTwo = Crypto.Hash(q.AnswerTwo);
+                q.AnswerThree = Crypto.Hash(q.AnswerThree);
                 using (ApolloEntities dc = new ApolloEntities())
                 {
+                    //Question qu1 = new Question();
+                    //qu1.Answers = Answers;
                     dc.Questions.Add(q);
                     dc.SaveChanges();
 
@@ -114,17 +114,14 @@ namespace Proyecto2_Apollo.Controllers
             }
             catch (Exception e)
             {
+                e.Message.ToString();
                 message = "Solicitud no válida";
             }
-            //}
-            // else
-            //{
-            //  message = "Solicitud no válida";
-            //}
             ViewBag.Message = message;
             ViewBag.Status = Status;
             return View(q);
         }
+
 
 
 
@@ -428,6 +425,107 @@ namespace Proyecto2_Apollo.Controllers
                 smtp.Send(message);
         }
 
+
+        [HttpGet]
+        public ActionResult RespondQuestion(string user)
+        {
+            string message = "";
+            int uid = 0;
+
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                var v = dc.Users.Where(a => a.Email == user).FirstOrDefault();
+                if (v != null)
+                {
+                    uid = v.UserID;
+                    ViewBag.userid = v.UserID;
+                    var w = dc.Questions.Where(b => b.FUserID == uid).FirstOrDefault();
+                    if (w != null)
+                    {
+                        ViewBag.Q1 = w.UserQuestionOne;
+                        ViewBag.Q2 = w.UserQuestionTwo;
+                        ViewBag.Q3 = w.UserQuestionThree;
+
+                    }
+                }
+                else
+                {
+                    message = "**Preguntas de seguridad no encontradas**";
+                }
+
+            }
+
+
+            ViewBag.Message = message;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RespondQuestion(Question model)
+        {       
+            string message = "";
+            bool status = false;
+
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                var v = dc.Questions.Where(a => a.FUserID == model.FUserID).FirstOrDefault();
+                if (v != null)
+                {
+                    if (model.UserQuestionOne == v.UserQuestionOne) {
+                        if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerOne) == 0)
+                        {
+                            status = true;
+                        }  
+                    }
+
+                    if (model.UserQuestionOne == v.UserQuestionTwo) {
+                        if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerTwo) == 0)
+                        {
+                            status = true;
+                        }
+                    }
+
+                    if (model.UserQuestionOne == v.UserQuestionThree){
+                        if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerThree) == 0)
+                        {
+                            status = true;
+                        }
+                    }
+
+                    if (status == true)
+                    {
+
+                        var w = dc.Users.Where(b => b.UserID == model.FUserID).FirstOrDefault();
+                        if (w != null)
+                        {
+                            //Send email for reset password
+                            string resetCode = Guid.NewGuid().ToString();
+                            SendVerificationLinkEmail(w.Email, resetCode, "ResetPassword");
+                            w.ResetPasswordCode = resetCode;
+                            //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+                            //in our model class in part 1
+                            dc.Configuration.ValidateOnSaveEnabled = false;
+                            dc.SaveChanges();
+                            message = "El enlace para restablecer la contraseña ha sido enviado a su correo electrónico.";
+                        }
+                        else
+                        {
+                            message = "**Cuenta no encontrada**";
+                        }
+
+                    }
+                    
+                }
+                else
+                {
+                    message = "**Cuenta no encontrada**";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+
+
         //Forgot Password
 
         public ActionResult ForgotPassword()
@@ -449,15 +547,7 @@ namespace Proyecto2_Apollo.Controllers
                 var account = dc.Users.Where(a => a.Email == Email).FirstOrDefault();
                 if (account != null)
                 {
-                    //Send email for reset password
-                    string resetCode = Guid.NewGuid().ToString();
-                    SendVerificationLinkEmail(account.Email, resetCode, "ResetPassword");
-                    account.ResetPasswordCode = resetCode;
-                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
-                    //in our model class in part 1
-                    dc.Configuration.ValidateOnSaveEnabled = false;
-                    dc.SaveChanges();
-                    message = "El enlace para restablecer la contraseña ha sido enviado a su correo electrónico.";
+                   return RedirectToAction("RespondQuestion", "User", new { user = Email });
                 }
                 else
                 {
@@ -466,6 +556,7 @@ namespace Proyecto2_Apollo.Controllers
             }
             ViewBag.Message = message;
             return View();
+            
         }
 
         public ActionResult ResetPassword(string id)

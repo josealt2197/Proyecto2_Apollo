@@ -22,60 +22,127 @@ else
         @Html.AntiForgeryToken()
 
         <center>
+            @{
+                List<SelectListItem> listItemsOne = new List<SelectListItem>();
+                listItemsOne.Add(new SelectListItem
+                {
+                    Text = "¿Cuál fue el nombre de la calle en que nació?",
+                    Value = "¿Cuál fue el nombre de la calle en que nació?"
+                });
+                listItemsOne.Add(new SelectListItem
+                {
+                    Text = "¿Cuál es tu comida favorita?",
+                    Value = "¿Cuál es tu comida favorita?",
+                });
+                listItemsOne.Add(new SelectListItem
+                {
+                    Text = "¿Cuál es tu pasatiempo favorito?",
+                    Value = "¿Cuál es tu pasatiempo favorito?"
+                });
+            }
+
+            @{
+                List<SelectListItem> listItemsTwo = new List<SelectListItem>();
+                listItemsTwo.Add(new SelectListItem
+                {
+                    Text = "¿Cuál es tu navegador web favorito?",
+                    Value = "¿Cuál es tu navegador web favorito?"
+                });
+                listItemsTwo.Add(new SelectListItem
+                {
+                    Text = "¿Cuál fue el nombre de la escuela a la que asistió?",
+                    Value = "¿Cuál fue el nombre de la escuela a la que asistió?",
+                });
+                listItemsTwo.Add(new SelectListItem
+                {
+                    Text = "¿Cuál es el segundo nombre de tu padre?",
+                    Value = "¿Cuál es el segundo nombre de tu padre?"
+                });
+            }
+
+            @{
+                List<SelectListItem> listItemsThree = new List<SelectListItem>();
+                listItemsThree.Add(new SelectListItem
+                {
+                    Text = "¿Cuál fue el nombre de tu primer mascota?",
+                    Value = "¿Cuál fue el nombre de tu primer mascota?"
+                });
+                listItemsThree.Add(new SelectListItem
+                {
+                    Text = "¿Dónde fueron tus primeras vacaciones?",
+                    Value = "¿Dónde fueron tus primeras vacaciones?",
+                });
+                listItemsThree.Add(new SelectListItem
+                {
+                    Text = "¿Cuál es el nombre de tu equipo de fútbol favorito?",
+                    Value = "¿Cuál es el nombre de tu equipo de fútbol favorito?"
+                });
+            }
             <div class="form-horizontal">
                 <hr />
-                
                 <h4>Seleccione una pregunta de la lista.</h4>
                 <br />
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @{
-                        List<SelectListItem> listItems = new List<SelectListItem>();
-                        listItems.Add(new SelectListItem
-                        {
-                            Text = "¿Cuál es tu color favorito?",
-                            Value = "¿Cuál es tu color favorito?"
-                        });
-                        listItems.Add(new SelectListItem
-                        {
-                            Text = "¿Cuál es tu comida favorita?",
-                            Value = "¿Cuál es tu comida favorita?",
-                            Selected = true
-                        });
-                        listItems.Add(new SelectListItem
-                        {
-                            Text = "¿Cuál es tu pasatiempo favorito?",
-                            Value = "¿Cuál es tu pasatiempo favorito?"
-                        });
-                    }
-                    @*@Html.LabelFor(model => model.UserQuestion, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
                     <div class="col-md-12">
-                        @Html.DropDownListFor(model => model.UserQuestion, listItems, "Elige una opción", new { @class = "form-control", @placehoolder = "Respuesta" })
-                        @Html.ValidationMessageFor(model => model.UserQuestion, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.UserQuestionOne, listItemsOne, "Elige una opción", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserQuestionOne, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @*@Html.LabelFor(model => model.Answers, htmlAttributes: new { @class = "control-label col-md-2" })*@
                     <div class="col-md-12">
-                        @Html.EditorFor(model => model.Answers, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Answers, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.AnswerOne, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Respuesta #1" } })
+                        @Html.ValidationMessageFor(model => model.AnswerOne, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.FUserID, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="form-group" style="display: none;">
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.FUserID, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.userid } })
                         @Html.ValidationMessageFor(model => model.FUserID, "", new { @class = "text-danger" })
                     </div>
                 </div>
+            </div>
 
+            <div class="form-horizontal">
+                <br />
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        @Html.DropDownListFor(model => model.UserQuestionTwo, listItemsTwo, "", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserQuestionTwo, "", new { @class = "text-danger" })
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.AnswerTwo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Respuesta #2" } })
+                        @Html.ValidationMessageFor(model => model.AnswerTwo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <br />
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.UserQuestionThree, listItemsThree, "Elige una opción", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserQuestionThree, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.AnswerThree, new { htmlAttributes = new { @class = "form-control", @placeholder = "Respuesta #3" } })
+                        @Html.ValidationMessageFor(model => model.AnswerThree, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
                 </div>
             </div>
         </center>
@@ -93,3 +160,5 @@ else
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }
+
+

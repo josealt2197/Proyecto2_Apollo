@@ -15,8 +15,12 @@ namespace Proyecto2_Apollo.Models
     public partial class Question
     {
         public int QuestionID { get; set; }
-        public string UserQuestion { get; set; }
-        public string Answers { get; set; }
+        public string UserQuestionOne { get; set; }
+        public string AnswerOne { get; set; }
+        public string UserQuestionTwo { get; set; }
+        public string AnswerTwo { get; set; }
+        public string UserQuestionThree { get; set; }
+        public string AnswerThree { get; set; }
         public Nullable<int> FUserID { get; set; }
     
         public virtual User User { get; set; }
