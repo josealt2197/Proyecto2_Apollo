@@ -277,6 +277,29 @@ namespace Proyecto2_Apollo.Controllers
             return View();
         }
 
+        //Desbloqueo
+        [HttpGet]
+        public ActionResult Desbloqueo(UserLogin login)
+        {
+            string message = "";
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                var user = dc.Users.Where(a => a.ID == login.ID).FirstOrDefault();
+                if (user != null)
+                {
+                    user.IP = null;
+                    user.Contador = 3;
+                    message = "¡Tu cuenta ha sido desbloqueada exitosamente! Te recomendamos cambiar la contraseña.";
+                }
+                else
+                {
+                    message = "Codigo incorrecto.";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+
 
         //2 StepCode 
         [HttpGet]
@@ -348,6 +371,8 @@ namespace Proyecto2_Apollo.Controllers
         [NonAction]
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
+            var activateUrl = "/User/" + emailFor + "/" + activationCode;
+            var activatelink = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, activateUrl);
             var verifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
@@ -426,8 +451,28 @@ namespace Proyecto2_Apollo.Controllers
                             "</ div >" +
                         "</ div > ";
             }
-
-
+            else if (emailFor == "Desbloqueo")
+            {
+                subject = "Recuperar Acceso";
+                body = "<div style='background-color: #263238; padding:20px'>" +
+                            "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
+                            "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                            "</div>" +
+                            "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
+                                    "<img style = 'border: 0;display: block;height: auto;width: 100%;max-width: 128px;' alt='' width='128' src='https://i1.createsend1.com/ei/t/0E/821/C3B/140045/csfinal/question-990a28028a01453c.png'>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<p class='size-22' style='Margin-top: 0;Margin-bottom: 0;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Alguien estuvo intentando acceder a tu cuenta por lo que la hemos bloqueado.</span></span></p><p class='size-22' style='Margin-top: 20px;Margin-bottom: 20px;font-family: montserrat,dejavu sans,verdana,sans-serif;font-size: 18px;line-height: 26px;text-align: center;' lang='x-size-22'><span class='font-montserrat'><span style = 'color:#ffffff' > Accede al link para desbloquearla:</span></span></p>" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                            "</div>" +
+                            "<div style = 'Margin-left: 20px;Margin-right: 20px;' >" +
+                                    "<h2 style = 'Margin-top: 0;Margin-bottom: 16px;font-style: normal;font-weight: normal;color: #e31212;font-size: 26px;line-height: 34px;font-family: montserrat,dejavu sans,verdana,sans-serif;text-align: center;' ><span style = 'color:#00c853' > <a style='color:#00c853' href=" + activatelink + "> Recuperar acceso </a> </ span ></ span ></ h2 >" +
+                            "</ div >" +
+                        "</ div > ";
+            }
 
 
             var smtp = new SmtpClient

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Desbloqueo";
+}
+
+<h2>Desbloqueo</h2>
+
+<center><a href="Login"><img src="~/Content/Images/unblock.png" width="256px" heigth="256px" class="text-center" alt="User" /></a></center>
+
+<hr />
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
+
+<div class="enlace">
+    @Html.ActionLink("¡Cambia tu contraseña!", "ForgotPassword", "User")
+</div>
+
