@@ -10,8 +10,12 @@
 {
     if (ViewBag.Message != null)
     {
-        <div class="alert alert-Info">
+        <div class="alert alert-info">
             @ViewBag.Message
+        </div>
+        <br />
+        <div class="enlace">
+            @Html.ActionLink("Regresar al inicio", "Login", "User")
         </div>
     }
 }

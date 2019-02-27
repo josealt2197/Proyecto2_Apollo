@@ -109,6 +109,7 @@
     <Content Include="Content\Images\Logo2.png" />
     <Content Include="Content\Images\Logo3.png" />
     <Content Include="Content\Images\Logo4.png" />
+    <Content Include="Content\Images\padlock.png" />
     <Content Include="Content\Images\top-logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

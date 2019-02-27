@@ -410,7 +410,7 @@ namespace Proyecto2_Apollo.Controllers
                 body = "<div style='background-color: #263238; padding:20px'>" +
                             "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
                             "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;¡Hola!</span></strong></span></p>" +
                             "</div>" +
                             "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
@@ -453,6 +453,7 @@ namespace Proyecto2_Apollo.Controllers
         [HttpGet]
         public ActionResult RespondQuestion(string user)
         {
+            bool Status = false;
             string message = "";
             int uid = 0;
 
@@ -474,21 +475,23 @@ namespace Proyecto2_Apollo.Controllers
                 }
                 else
                 {
-                    message = "**Preguntas de seguridad no encontradas**";
+                    message = "No se han encontrado Preguntas de Seguridad asociadas a esta cuenta.";
+                    Status = true;
                 }
 
             }
 
-
+            ViewBag.Status = Status;
             ViewBag.Message = message;
             return View();
         }
 
         [HttpPost]
         public ActionResult RespondQuestion(Question model)
-        {       
+        {
+            bool Status = false;
             string message = "";
-            bool status = false;
+            bool right = false;
 
             using (ApolloEntities dc = new ApolloEntities())
             {
@@ -498,25 +501,25 @@ namespace Proyecto2_Apollo.Controllers
                     if (model.UserQuestionOne == v.UserQuestionOne) {
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerOne) == 0)
                         {
-                            status = true;
+                            right = true;
                         }  
                     }
 
                     if (model.UserQuestionOne == v.UserQuestionTwo) {
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerTwo) == 0)
                         {
-                            status = true;
+                            right = true;
                         }
                     }
 
                     if (model.UserQuestionOne == v.UserQuestionThree){
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerThree) == 0)
                         {
-                            status = true;
+                            right = true;
                         }
                     }
 
-                    if (status == true)
+                    if (right == true)
                     {
 
                         var w = dc.Users.Where(b => b.UserID == model.FUserID).FirstOrDefault();
@@ -526,15 +529,15 @@ namespace Proyecto2_Apollo.Controllers
                             string resetCode = Guid.NewGuid().ToString();
                             SendVerificationLinkEmail(w.Email, resetCode, "ResetPassword");
                             w.ResetPasswordCode = resetCode;
-                            //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
-                            //in our model class in part 1
                             dc.Configuration.ValidateOnSaveEnabled = false;
                             dc.SaveChanges();
                             message = "El enlace para restablecer la contraseña ha sido enviado a su correo electrónico.";
+                            Status = true;
                         }
                         else
                         {
-                            message = "**Cuenta no encontrada**";
+                            message = "No ha sido posible enviar las instrucciones para reestaurar la contraseña.";
+                            Status = true;
                         }
 
                     }
@@ -542,9 +545,11 @@ namespace Proyecto2_Apollo.Controllers
                 }
                 else
                 {
-                    message = "**Cuenta no encontrada**";
+                    message = "No se han encontrado Preguntas de Seguridad asociadas a esta cuenta.";
+                    Status = true;
                 }
             }
+            ViewBag.Status = Status;
             ViewBag.Message = message;
             return View();
         }
@@ -575,7 +580,7 @@ namespace Proyecto2_Apollo.Controllers
                 }
                 else
                 {
-                    message = "**Cuenta no encontrada**";
+                    message = "Cuenta no encontrada.";
                 }
             }
             ViewBag.Message = message;
