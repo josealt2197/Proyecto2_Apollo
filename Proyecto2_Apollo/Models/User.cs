@@ -32,6 +32,8 @@ namespace Proyecto2_Apollo.Models
         public System.Guid ActivationCode { get; set; }
         public string ResetPasswordCode { get; set; }
         public string Code { get; set; }
+        public string IP { get; set; }
+        public Nullable<int> Contador { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Question> Questions { get; set; }

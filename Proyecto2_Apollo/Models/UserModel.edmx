@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Questions">
           <Key>
             <PropertyRef Name="QuestionID" />
@@ -34,6 +34,8 @@
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
           <Property Name="Code" Type="varchar" MaxLength="6" />
+          <Property Name="IP" Type="varchar" MaxLength="50" />
+          <Property Name="Contador" Type="int" />
         </EntityType>
         <Association Name="FK__Questions__FUser__5CD6CB2B">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -55,8 +57,7 @@
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -91,6 +92,8 @@
           <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__5CD6CB2B" FromRole="Users" ToRole="Questions" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contador" Type="Int32" />
         </EntityType>
         <Association Name="FK__Questions__FUser__5CD6CB2B">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
@@ -135,6 +138,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ApolloModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Contador" ColumnName="Contador" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

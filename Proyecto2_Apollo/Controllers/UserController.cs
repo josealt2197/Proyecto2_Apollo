@@ -123,8 +123,6 @@ namespace Proyecto2_Apollo.Controllers
         }
 
 
-
-
         //Verify Account  
         [HttpGet]
         public ActionResult VerifyAccount(string id)
@@ -223,7 +221,6 @@ namespace Proyecto2_Apollo.Controllers
                         cookie.HttpOnly = true;
                         Response.Cookies.Add(cookie);
 
-
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
                             return Redirect(ReturnUrl);
@@ -237,12 +234,30 @@ namespace Proyecto2_Apollo.Controllers
                             dc.SaveChanges();
                             SendVerificationLinkEmail(v.Email, codes, "TwoStepCode");
                             return RedirectToAction("TwoStepCode", "User");
-
                         }
+                    }
+                    else if (v.IP != null)
+                    {
+                        return RedirectToAction("Bloqueo", "User");
                     }
                     else
                     {
                         message = "Alguna de sus credenciales no es correcta, intente de nuevo.";
+                        v.Contador = v.Contador - 1;
+                        dc.Configuration.ValidateOnSaveEnabled = false;
+                        dc.SaveChanges();
+
+                        if (v.Contador == 0)
+                        {
+                            var host = Dns.GetHostEntry(Dns.GetHostName());
+                            foreach (var ip in host.AddressList)
+                            {
+                                v.IP = ip.ToString();
+                                dc.Configuration.ValidateOnSaveEnabled = false;
+                                dc.SaveChanges();
+                                message = "Se ha bloqueado tu IP por sobrepasar el número de intentos";
+                            }
+                        }
                     }
                 }
                 else
@@ -253,6 +268,15 @@ namespace Proyecto2_Apollo.Controllers
             ViewBag.Message = message;
             return View();
         }
+
+        //Bloqueo 
+        [HttpGet]
+        public ActionResult Bloqueo()
+        {
+            //var message = "";
+            return View();
+        }
+
 
         //2 StepCode 
         [HttpGet]
