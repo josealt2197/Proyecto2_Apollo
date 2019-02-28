@@ -105,6 +105,7 @@
     <Content Include="Content\Images\bg1.jpg" />
     <Content Include="Content\Images\bg2.jpg" />
     <Content Include="Content\Images\bg3.jpg" />
+    <Content Include="Content\Images\info.png" />
     <Content Include="Content\Images\Logo1.png" />
     <Content Include="Content\Images\Logo2.png" />
     <Content Include="Content\Images\Logo3.png" />
@@ -166,6 +167,9 @@
     </Compile>
     <Compile Include="Models\Extended\Question.cs" />
     <Compile Include="Models\Extended\User.cs" />
+    <Compile Include="Models\Login.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Question.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>

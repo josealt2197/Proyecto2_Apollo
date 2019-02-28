@@ -58,10 +58,12 @@ namespace Proyecto2_Apollo.Controllers
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword); //
                 #endregion
                 user.IsEmailVerified = false;
+                user.Contador = 3;
 
                 #region Save to Database
                 using (ApolloEntities dc = new ApolloEntities())
                 {
+                    dc.Configuration.ValidateOnSaveEnabled = false;
                     dc.Users.Add(user);
                     dc.SaveChanges();
 
@@ -115,7 +117,7 @@ namespace Proyecto2_Apollo.Controllers
             catch (Exception e)
             {
                 e.Message.ToString();
-                message = "Solicitud no válida";
+                message = "No se ha podido registrar las preguntas.";
             }
             ViewBag.Message = message;
             ViewBag.Status = Status;
@@ -199,9 +201,19 @@ namespace Proyecto2_Apollo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin login, string ReturnUrl = "")
         {
+            
+
             string message = "";
             using (ApolloEntities dc = new ApolloEntities())
             {
+                Login logins = new Login();
+                logins.Email = login.Email;
+                logins.Cedula = login.ID;
+                logins.Date = DateTime.Now;
+                dc.Configuration.ValidateOnSaveEnabled = false;
+                dc.Logins.Add(logins);
+                dc.SaveChanges();
+
                 var v = dc.Users.Where(a => a.Email == login.Email).FirstOrDefault();
                 if (v != null)
                 {
@@ -223,6 +235,8 @@ namespace Proyecto2_Apollo.Controllers
 
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
+                            var link = v.ID;
+                            SendVerificationLinkEmail(v.Email, link, "Desbloqueo");
                             return Redirect(ReturnUrl);
                         }
                         else
@@ -230,6 +244,7 @@ namespace Proyecto2_Apollo.Controllers
                             Random generator = new Random();
                             var codes = generator.Next(0, 999999).ToString("D6"); ;
                             v.Code = codes;
+                            v.Contador = 3;
                             dc.Configuration.ValidateOnSaveEnabled = false;
                             dc.SaveChanges();
                             SendVerificationLinkEmail(v.Email, codes, "TwoStepCode");
@@ -238,6 +253,8 @@ namespace Proyecto2_Apollo.Controllers
                     }
                     else if (v.IP != null)
                     {
+                        var link = v.ID;
+                        SendVerificationLinkEmail(v.Email, link, "Desbloqueo");
                         return RedirectToAction("Bloqueo", "User");
                     }
                     else
@@ -281,21 +298,48 @@ namespace Proyecto2_Apollo.Controllers
         [HttpGet]
         public ActionResult Desbloqueo(UserLogin login)
         {
-            string message = "";
+            string id = "";
+            bool status = false;
             using (ApolloEntities dc = new ApolloEntities())
             {
                 var user = dc.Users.Where(a => a.ID == login.ID).FirstOrDefault();
                 if (user != null)
                 {
-                    user.IP = null;
-                    user.Contador = 3;
-                    message = "¡Tu cuenta ha sido desbloqueada exitosamente! Te recomendamos cambiar la contraseña.";
+                    id = user.ID;
+                }
+            }
+            ViewBag.Status = status;
+            ViewBag.User = id;
+            return View();
+        }
+
+
+        //Desbloqueo
+        [HttpPost]
+        public ActionResult Desbloqueo(string id, string answer)
+        {
+            bool status = false;
+            string message = "";
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                var user = dc.Users.Where(a => a.ID == id).FirstOrDefault();
+                if (user != null)
+                {
+                    var v = dc.Users.Where(a => a.Phone == answer).FirstOrDefault();
+                    v.IP = null;
+                    v.Contador = 3;
+                    dc.Configuration.ValidateOnSaveEnabled = false;
+                    dc.SaveChanges();
+                    message = "¡Tu cuenta ha sido desbloqueada exitosamente!";
+                    status = true;
                 }
                 else
                 {
-                    message = "Codigo incorrecto.";
+                    message = "La respuesta no coincide con tus datos, por favor verifica tu información.";
+                    status = true;
                 }
             }
+            ViewBag.Status = status;
             ViewBag.Message = message;
             return View();
         }
@@ -305,7 +349,6 @@ namespace Proyecto2_Apollo.Controllers
         [HttpGet]
         public ActionResult TwoStepCode()
         {
-            string message = "Verifica el codigo que se envio a tu correo";
             return View();
         }
 
@@ -390,7 +433,7 @@ namespace Proyecto2_Apollo.Controllers
                 body = "<div style='background-color: #263238; padding:20px'>" +
                             "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
                             "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;¡ Bienvenido a Apollo !</span></strong></span></p>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161; Bienvenido a Apollo !</span></strong></span></p>" +
                             "</div>" +
                             "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +
@@ -435,7 +478,7 @@ namespace Proyecto2_Apollo.Controllers
                 body = "<div style='background-color: #263238; padding:20px'>" +
                             "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
                             "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
-                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;¡Hola!</span></strong></span></p>" +
+                                "<p class='size-40' style='Margin-top: 0;Margin-bottom: 20px;font-family: oswald,avenir next condensed,arial narrow,ms ui gothic,sans-serif;font-size: 32px;line-height: 40px;text-align: center;' lang='x-size-40'><span class='font-oswald'><strong><span style = 'color:#ffffff'> &#161;Hola!</span></strong></span></p>" +
                             "</div>" +
                             "<div class='divider' style='display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #ccc;Margin-bottom: 20px;'>&nbsp;</div>" +
                             "<div style = 'Margin-left: 20px;Margin-right: 20px;' align='center'>" +

@@ -421,7 +421,8 @@ cite {
 }
 
 .text-danger {
-    color: #b94a48
+    color: #ffd600;
+    font-size: 1.2em;
 }
 
 .text-success {

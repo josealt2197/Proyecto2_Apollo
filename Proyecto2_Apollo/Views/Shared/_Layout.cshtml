@@ -13,24 +13,27 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             @*<div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>*@
-                @*@Html.ActionLink("Apollo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>*@
+            @*@Html.ActionLink("Apollo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            @*</div>*@
             <center><a href="Login"><img src="~/Content/Images/Logo4.png" class="text-center" width="220" height="80" alt="User" /></a></center>
+            
             @*<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
             </div>*@
         </div>
+        
     </div>
 
     <div class="container body-content">
             @RenderBody()
         <hr />
         <footer>
+            <a class="text-help" href="https://drive.google.com/file/d/1OlMPecQX1giiwjAXyZTxTMD8UIiD0VGf/view"> ¿Necesitas ayuda?  </a><img src="~/Content/Images/info.png" width="15" height="15" alt="User" />
             <p>&copy; @DateTime.Now.Year - Apollo Transactions</p>
         </footer>
     </div>

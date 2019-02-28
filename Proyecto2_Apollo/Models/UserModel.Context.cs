@@ -25,6 +25,7 @@ namespace Proyecto2_Apollo.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
