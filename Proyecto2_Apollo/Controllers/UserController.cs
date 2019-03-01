@@ -201,7 +201,7 @@ namespace Proyecto2_Apollo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin login, string ReturnUrl = "")
         {
-            
+
 
             string message = "";
             using (ApolloEntities dc = new ApolloEntities())
@@ -325,25 +325,29 @@ namespace Proyecto2_Apollo.Controllers
                 var user = dc.Users.Where(a => a.ID == id).FirstOrDefault();
                 if (user != null)
                 {
-                    var v = dc.Users.Where(a => a.Phone == answer).FirstOrDefault();
-                    v.IP = null;
-                    v.Contador = 3;
-                    dc.Configuration.ValidateOnSaveEnabled = false;
-                    dc.SaveChanges();
-                    message = "¡Tu cuenta ha sido desbloqueada exitosamente!";
-                    status = true;
-                }
-                else
-                {
-                    message = "La respuesta no coincide con tus datos, por favor verifica tu información.";
-                    status = true;
-                }
-            }
-            ViewBag.Status = status;
-            ViewBag.Message = message;
-            return View();
-        }
+                    //var v = dc.Users.Where(a => a.Phone == answer).FirstOrDefault();
+                    if (string.Compare(user.Phone, answer) == 0)
+                    {
+                        user.IP = null;
+                        user.Contador = 3;
+                        dc.Configuration.ValidateOnSaveEnabled = false;
+                        dc.SaveChanges();
+                        message = "¡Tu cuenta ha sido desbloqueada exitosamente!";
+                        status = true;
+                        ViewBag.Message = message;
 
+                    }
+                    else
+                    {
+                        message = "La respuesta no coincide con tus datos, por favor verifica tu información.";
+                        ViewBag.ErrorMsg = message;
+                    }
+                }
+
+                ViewBag.Status = status;
+                return View();
+            }
+        }
 
         //2 StepCode 
         [HttpGet]
@@ -586,36 +590,42 @@ namespace Proyecto2_Apollo.Controllers
                 var v = dc.Questions.Where(a => a.FUserID == model.FUserID).FirstOrDefault();
                 if (v != null)
                 {
-                    if (model.UserQuestionOne == v.UserQuestionOne) {
+                    if (model.UserQuestionOne == v.UserQuestionOne)
+                    {
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerOne) == 0)
                         {
                             right = true;
                         }
                         else
                         {
-                            message = "La respuesta no es correcta";                           
-                        }  
+                            message = "La respuesta no es correcta. Intente de nuevo.";
+                            Status = true;
+                        }
                     }
 
-                    if (model.UserQuestionOne == v.UserQuestionTwo) {
+                    if (model.UserQuestionOne == v.UserQuestionTwo)
+                    {
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerTwo) == 0)
                         {
                             right = true;
                         }
                         else
                         {
-                            message = "La respuesta no es correcta";
+                            message = "La respuesta no es correcta. Intente de nuevo.";
+                            Status = true;
                         }
                     }
 
-                    if (model.UserQuestionOne == v.UserQuestionThree){
+                    if (model.UserQuestionOne == v.UserQuestionThree)
+                    {
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerThree) == 0)
                         {
                             right = true;
                         }
                         else
                         {
-                            message = "La respuesta no es correcta";
+                            message = "La respuesta no es correcta. Intente de nuevo.";
+                            Status = true;
                         }
                     }
 
@@ -641,7 +651,7 @@ namespace Proyecto2_Apollo.Controllers
                         }
 
                     }
-                    
+
                 }
                 else
                 {
@@ -676,7 +686,7 @@ namespace Proyecto2_Apollo.Controllers
                 var account = dc.Users.Where(a => a.Email == Email).FirstOrDefault();
                 if (account != null)
                 {
-                   return RedirectToAction("RespondQuestion", "User", new { user = Email });
+                    return RedirectToAction("RespondQuestion", "User", new { user = Email });
                 }
                 else
                 {
@@ -685,7 +695,7 @@ namespace Proyecto2_Apollo.Controllers
             }
             ViewBag.Message = message;
             return View();
-            
+
         }
 
         public ActionResult ResetPassword(string id)

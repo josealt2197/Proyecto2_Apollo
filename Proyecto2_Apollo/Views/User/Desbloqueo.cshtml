@@ -27,8 +27,17 @@
 else
 {
     <h2>Desbloquear Cuenta</h2>
-
     <hr />
+
+
+    if (ViewBag.ErrorMsg != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMsg
+        </div>
+
+    }
+    
     using (Html.BeginForm())
     {
         <h4>
@@ -48,7 +57,7 @@ else
                 </div>
             </div>
         </center>
-       
+
 
         <div class="form-group">
             <div class="col-md-12">
