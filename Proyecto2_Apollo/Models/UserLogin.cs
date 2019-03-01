@@ -15,7 +15,7 @@ namespace Proyecto2_Apollo.Models
         public string Email { get; set; }
 
         [Display(Name = "Cédula")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Se requiere su correo electrónico")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Se requiere su cédula")]
         [DataType(DataType.Text)]
         public string ID { get; set; }
 

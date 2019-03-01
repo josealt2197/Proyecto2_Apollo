@@ -474,7 +474,7 @@ namespace Proyecto2_Apollo.Controllers
             }
             else if (emailFor == "TwoStepCode")
             {
-                subject = "Codigo de Acceso";
+                subject = "Código de Acceso";
                 body = "<div style='background-color: #263238; padding:20px'>" +
                             "<div class='logo-right' align='right' id='emb-email-header'><img style = 'display: block;height: auto;width: 100%;border: 0;max-width: 227px;' src='https://i1.createsend1.com/ei/t/0E/821/C3B/075144/csfinal/Logo4.png' alt='' width='227'></div>" +
                             "<div style = 'mso-line-height-rule: exactly;mso-text-raise: 4px;'>" +
@@ -590,6 +590,10 @@ namespace Proyecto2_Apollo.Controllers
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerOne) == 0)
                         {
                             right = true;
+                        }
+                        else
+                        {
+                            message = "La respuesta no es correcta";                           
                         }  
                     }
 
@@ -598,12 +602,20 @@ namespace Proyecto2_Apollo.Controllers
                         {
                             right = true;
                         }
+                        else
+                        {
+                            message = "La respuesta no es correcta";
+                        }
                     }
 
                     if (model.UserQuestionOne == v.UserQuestionThree){
                         if (string.Compare(Crypto.Hash(model.AnswerOne), v.AnswerThree) == 0)
                         {
                             right = true;
+                        }
+                        else
+                        {
+                            message = "La respuesta no es correcta";
                         }
                     }
 
