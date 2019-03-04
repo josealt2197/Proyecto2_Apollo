@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Proyecto2_Apollo.Models;
+using System.IO;
 
 namespace Proyecto2_Apollo.Controllers
 {
@@ -17,6 +18,31 @@ namespace Proyecto2_Apollo.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
+            using (ApolloEntities dc = new ApolloEntities())
+            {
+                string query = "SELECT * FROM Places";
+
+                var itemAtivacao = dc.Places.SqlQuery(query).ToList();
+                string path = Server.MapPath("~/Models/Places.json");
+
+                TextWriter file = new StreamWriter(path);
+                file.WriteLine("[");
+                foreach (var item in itemAtivacao)
+                {
+                    if (item.id == 253)
+                    {
+                        file.WriteLine("{ \"id\": \"" + item.id + "\", \"name\": \"" + item.name + "\", \"parent_id\": \"" + item.parent_id + "\"}");
+                    }
+                    else
+                    {
+                        file.WriteLine("{ \"id\":\"" + item.id + "\", \"name\":\"" + item.name + "\", \"parent_id\":\"" + item.parent_id + "\"},");
+                    }
+
+                }
+                file.WriteLine("]");
+                file.Close();
+            }
+
             return View();
         }
         //Registration POST action 
@@ -25,7 +51,12 @@ namespace Proyecto2_Apollo.Controllers
         public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")] User user)
         {
             bool Status = false;
-            string message = "";
+            string message = "", section, province, district;
+            int sec, pro, dis;
+
+            pro = Int32.Parse(user.Province);
+            sec = Int32.Parse(user.Section);
+            dis = Int32.Parse(user.District);
 
             // Model Validation 
             if (ModelState.IsValid)
@@ -63,6 +94,27 @@ namespace Proyecto2_Apollo.Controllers
                 #region Save to Database
                 using (ApolloEntities dc = new ApolloEntities())
                 {
+                    var p = dc.Places.Where(a => a.id == pro).FirstOrDefault();
+                    if (p != null)
+                    {
+                        province = p.name;
+                        user.Province = province;
+                    }
+
+                    var s = dc.Places.Where(a => a.id == sec).FirstOrDefault();
+                    if (s != null)
+                    {
+                        section = s.name;
+                        user.Section = section;
+                    }
+
+                    var d = dc.Places.Where(a => a.id == dis).FirstOrDefault();
+                    if (d != null)
+                    {
+                        district = d.name;
+                        user.District = district;
+                    }
+
                     dc.Configuration.ValidateOnSaveEnabled = false;
                     dc.Users.Add(user);
                     dc.SaveChanges();

@@ -95,23 +95,20 @@ else
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <select name="country" id="country" class="class-direccion-register">
-                                <option selected>Seleccione su Provincia</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.Province, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige una provincia", new { @class = "class-direccion-register" })
+                            @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select name="state" id="state" class="class-direccion-register">
-                                <option selected>Seleccione su Cantón</option>
-                            </select>
+                           @Html.DropDownListFor(model => model.Section, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un cantón", new { @class = "class-direccion-register" })
+                           @Html.ValidationMessageFor(model => model.Section, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <select name="city" id="city" class="class-direccion-register">
-                                <option selected>Seleccione su Distrito</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.District, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un distrito", new { @class = "class-direccion-register" })
+                            @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -153,54 +150,54 @@ else
 @section Scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script>
+<script>
+            $(document).ready(function () {
 
-        $(document).ready(function () {
+                load_json_data('Province');
 
-            load_json_data('country');
+                function load_json_data(id, parent_id) {
+                    var html_code = '';
+                    $.getJSON('../Models/Places.json', function (data) {
 
-            function load_json_data(id, parent_id) {
-                var html_code = '';
-                $.getJSON('../Models/Places.json', function (data) {
-
-                    html_code += '<option value="">Seleccione</option>';
-                    $.each(data, function (key, value) {
-                        if (id == 'country') {
-                            if (value.parent_id == '0') {
-                                html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                        html_code += '<option value="">Seleccione</option>';
+                        $.each(data, function (key, value) {
+                            if (id == 'Province') {
+                                if (value.parent_id == '0') {
+                                    html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                                }
                             }
-                        }
-                        else {
-                            if (value.parent_id == parent_id) {
-                                html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                            else {
+                                if (value.parent_id == parent_id) {
+                                    html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                                }
                             }
-                        }
+                        });
+                        $('#' + id).html(html_code);
                     });
-                    $('#' + id).html(html_code);
+
+                }
+
+                $(document).on('change', '#Province', function () {
+                    var country_id = $(this).val();
+                    if (country_id != '') {
+                        load_json_data('Section', country_id);
+                    }
+                    else {
+                        $('#Section').html('<option value="">Cantón</option>');
+                        $('#District').html('<option value="">Distrito</option>');
+                    }
                 });
-
-            }
-
-            $(document).on('change', '#country', function () {
-                var country_id = $(this).val();
-                if (country_id != '') {
-                    load_json_data('state', country_id);
-                }
-                else {
-                    $('#state').html('<option value="">Cantón</option>');
-                    $('#city').html('<option value="">Distrito</option>');
-                }
+                $(document).on('change', '#Section', function () {
+                    var state_id = $(this).val();
+                    if (state_id != '') {
+                        load_json_data('District', state_id);
+                    }
+                    else {
+                        $('#District').html('<option value="">Distrito</option>');
+                    }
+                });
             });
-            $(document).on('change', '#state', function () {
-                var state_id = $(this).val();
-                if (state_id != '') {
-                    load_json_data('city', state_id);
-                }
-                else {
-                    $('#city').html('<option value="">Distrito</option>');
-                }
-            });
-        });
-    </script>
+</script>
+
 
 }

@@ -38,10 +38,21 @@ namespace Proyecto2_Apollo.Models
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
-        [Display(Name = "Dirección")]
+        /*[Display(Name = "Dirección")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Se requiere su Dirección")]
         [DataType(DataType.Text)]
-        public string Address { get; set; }
+        public string Address { get; set; }*/
+        [Display(Name = "Provincia")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Provincia no seleccionada.")]
+        public string Province { get; set; }
+
+        [Display(Name = "Distrito")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Distrito no seleccionado.")]
+        public string District { get; set; }
+
+        [Display(Name = "Cantón")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Cantón no seleccionado.")]
+        public string Section { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Se requiere su contraseña")]
         [MembershipPassword(

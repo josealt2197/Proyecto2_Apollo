@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ApolloModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Logins">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,7 +45,9 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="254" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Province" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="District" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Section" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsEmailVerified" Type="bit" Nullable="false" />
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
@@ -54,7 +56,7 @@
           <Property Name="IP" Type="varchar" MaxLength="50" />
           <Property Name="Contador" Type="int" />
         </EntityType>
-        <Association Name="FK__Questions__FUser__5CD6CB2B">
+        <Association Name="FK__Questions__FUser__2A164134">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -71,12 +73,13 @@
           <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Questions__FUser__5CD6CB2B" Association="Self.FK__Questions__FUser__5CD6CB2B">
+          <AssociationSet Name="FK__Questions__FUser__2A164134" Association="Self.FK__Questions__FUser__2A164134">
             <End Role="Users" EntitySet="Users" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -88,6 +91,14 @@
           <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="parent_id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -101,7 +112,7 @@
           <Property Name="UserQuestionThree" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AnswerThree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FUserID" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Questions__FUser__5CD6CB2B" FromRole="Questions" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Questions__FUser__2A164134" FromRole="Questions" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -113,7 +124,9 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="254" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
@@ -121,9 +134,9 @@
           <Property Name="Code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contador" Type="Int32" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__5CD6CB2B" FromRole="Users" ToRole="Questions" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__FUser__2A164134" FromRole="Users" ToRole="Questions" />
         </EntityType>
-        <Association Name="FK__Questions__FUser__5CD6CB2B">
+        <Association Name="FK__Questions__FUser__2A164134">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Questions" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,22 +150,14 @@
         </Association>
         <EntityContainer Name="ApolloEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Places" EntityType="Self.Place" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Questions__FUser__5CD6CB2B" Association="Self.FK__Questions__FUser__5CD6CB2B">
+          <AssociationSet Name="FK__Questions__FUser__2A164134" Association="Self.FK__Questions__FUser__2A164134">
             <End Role="Users" EntitySet="Users" />
             <End Role="Questions" EntitySet="Questions" />
           </AssociationSet>
-          <EntitySet Name="Places" EntityType="ApolloModel.Place" />
         </EntityContainer>
-        <EntityType Name="Place">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
-          <Property Name="parent_id" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -166,6 +171,15 @@
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Places">
+            <EntityTypeMapping TypeName="ApolloModel.Place">
+              <MappingFragment StoreEntitySet="Places">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -192,7 +206,9 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
                 <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
@@ -200,15 +216,6 @@
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="IP" ColumnName="IP" />
                 <ScalarProperty Name="Contador" ColumnName="Contador" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Places">
-            <EntityTypeMapping TypeName="ApolloModel.Place">
-              <MappingFragment StoreEntitySet="Places">
-                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
