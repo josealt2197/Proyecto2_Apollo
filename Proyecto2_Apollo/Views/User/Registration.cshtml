@@ -95,19 +95,19 @@ else
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            @Html.DropDownListFor(model => model.Province, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige una provincia", new { @class = "class-direccion-register" })
+                            @Html.DropDownListFor(model => model.Province, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige una provincia", new { @class = "class-direccion-register", @style = "font-family: Helvetica;" })
                             @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                           @Html.DropDownListFor(model => model.Section, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un cantón", new { @class = "class-direccion-register" })
-                           @Html.ValidationMessageFor(model => model.Section, "", new { @class = "text-danger" })
+                           @Html.DropDownListFor(model => model.Section, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un cantón", new { @class = "class-direccion-register", @style = "font-family: Helvetica;" })
+                            <br />@Html.ValidationMessageFor(model => model.Section, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            @Html.DropDownListFor(model => model.District, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un distrito", new { @class = "class-direccion-register" })
+                            @Html.DropDownListFor(model => model.District, new SelectList(Enumerable.Empty<SelectListItem>()), "Elige un distrito", new { @class = "class-direccion-register", @style = "font-family: Helvetica;" })
                             @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 [
-{ "id":"1", "name":"San Jose", "parent_id":"0"},
+{ "id":"1", "name":"San José", "parent_id":"0"},
 { "id":"2", "name":"Alajuela", "parent_id":"0"},
 { "id":"3", "name":"Cartago", "parent_id":"0"},
 { "id":"4", "name":"Heredia", "parent_id":"0"},
