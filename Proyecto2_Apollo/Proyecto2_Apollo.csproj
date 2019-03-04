@@ -126,6 +126,7 @@
     <Content Include="Models\UserModel.edmx.diagram">
       <DependentUpon>UserModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\Places.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Models\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -168,6 +169,9 @@
     <Compile Include="Models\Extended\Question.cs" />
     <Compile Include="Models\Extended\User.cs" />
     <Compile Include="Models\Login.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Place.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">

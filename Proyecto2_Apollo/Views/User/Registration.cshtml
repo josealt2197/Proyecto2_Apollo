@@ -4,6 +4,8 @@
     ViewBag.Title = "Registration";
 }
 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
 <h2>Registro de Usuarios</h2>
 
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
@@ -93,22 +95,22 @@ else
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <select id="ddlCustomers" class="class-direccion-register">
-                                <option selected>Provincia</option>
+                            <select name="country" id="country" class="class-direccion-register">
+                                <option selected>Seleccione su Provincia</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select id="ddlCustomers" class="class-direccion-register">
-                                <option selected>Distrito</option>
+                            <select name="state" id="state" class="class-direccion-register">
+                                <option selected>Seleccione su Cantón</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <select id="ddlCustomers" class="class-direccion-register">
-                                <option selected>Cantón</option>
+                            <select name="city" id="city" class="class-direccion-register">
+                                <option selected>Seleccione su Distrito</option>
                             </select>
                         </div>
                     </div>
@@ -117,14 +119,14 @@ else
                 </div>
 
                 @*<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control class-direccion", @placeholder = "Dirección" } })
-            @Html.TextAreaFor(model => model.Address, new { placeholder = "Dirección", cols = "50", rows = "5", @class = "form-control class-direccion", style = "resize: none; font-family:'Helvetica'" })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>*@
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control class-direccion", @placeholder = "Dirección" } })
+                            @Html.TextAreaFor(model => model.Address, new { placeholder = "Dirección", cols = "50", rows = "5", @class = "form-control class-direccion", style = "resize: none; font-family:'Helvetica'" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>*@
 
                 <div class="form-group">
                     <div class="col-md-12">
@@ -151,5 +153,54 @@ else
 @section Scripts{
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-}
+    <script>
 
+        $(document).ready(function () {
+
+            load_json_data('country');
+
+            function load_json_data(id, parent_id) {
+                var html_code = '';
+                $.getJSON('../Models/Places.json', function (data) {
+
+                    html_code += '<option value="">Seleccione</option>';
+                    $.each(data, function (key, value) {
+                        if (id == 'country') {
+                            if (value.parent_id == '0') {
+                                html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                            }
+                        }
+                        else {
+                            if (value.parent_id == parent_id) {
+                                html_code += '<option value="' + value.id + '">' + value.name + '</option>';
+                            }
+                        }
+                    });
+                    $('#' + id).html(html_code);
+                });
+
+            }
+
+            $(document).on('change', '#country', function () {
+                var country_id = $(this).val();
+                if (country_id != '') {
+                    load_json_data('state', country_id);
+                }
+                else {
+                    $('#state').html('<option value="">Cantón</option>');
+                    $('#city').html('<option value="">Distrito</option>');
+                }
+            });
+            $(document).on('change', '#state', function () {
+                var state_id = $(this).val();
+                if (state_id != '') {
+                    load_json_data('city', state_id);
+                }
+                else {
+                    $('#city').html('<option value="">Distrito</option>');
+                }
+            });
+        });
+    </script>
+
+}
